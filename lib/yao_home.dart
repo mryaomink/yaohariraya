@@ -94,30 +94,38 @@ class _YaoHomeState extends State<YaoHome> {
             List<Note> notes = snapshot.data!.docs
                 .map((doc) => Note.fromSnapshot(doc))
                 .toList();
-            return ListView.builder(itemBuilder: (context, index) {
-              CardColor cardColors = getRandomCardColor();
-              return Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Card(
-                  elevation: 2,
-                  color: cardColors.backgroundColor,
-                  child: ListTile(
-                    title: Text(
-                      notes[index].author,
-                      style: GoogleFonts.nunito(
-                          fontSize: 24.0,
-                          color: cardColors.titleColor,
-                          fontWeight: FontWeight.bold),
+            return ListView.builder(
+                itemCount: notes.length,
+                shrinkWrap: true,
+                primary: false,
+                itemBuilder: (context, index) {
+                  CardColor cardColors = getRandomCardColor();
+                  return Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Card(
+                      elevation: 2,
+                      color: cardColors.backgroundColor,
+                      child: ListTile(
+                        contentPadding: const EdgeInsets.all(8.0),
+                        title: Text(
+                          notes[index].author,
+                          style: GoogleFonts.nunito(
+                              fontSize: 24.0,
+                              color: cardColors.titleColor,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        subtitle: Text(
+                          notes[index].content,
+                          style: GoogleFonts.lato(
+                              fontSize: 16.0,
+                              color: cardColors.subtitleColor,
+                              letterSpacing: 2.5,
+                              height: 1.5),
+                        ),
+                      ),
                     ),
-                    subtitle: Text(
-                      notes[index].content,
-                      style: GoogleFonts.lato(
-                          fontSize: 16.0, color: cardColors.subtitleColor),
-                    ),
-                  ),
-                ),
-              );
-            });
+                  );
+                });
           } else {
             return const Center(
               child: CircularProgressIndicator(),
