@@ -19,7 +19,7 @@ class Note {
 
   Map<String, dynamic> toMap() {
     return {
-      'title': author,
+      'author': author,
       'content': content,
     };
   }
